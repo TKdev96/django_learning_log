@@ -9,5 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     #Dodanie widoku Tematów
     path('topics/', views.topics, name='topics'),
+    #Dodanie widoków poszczególnych tematów
+    path('topics/<int:topic_id>', views.topic, name="topic"),
 
 ]
