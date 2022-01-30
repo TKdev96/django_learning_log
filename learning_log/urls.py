@@ -18,5 +18,5 @@ from django.urls import path, include #import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('learning_logs.urls', name='learning_logs')), #Dołączenie modułu learning_logs   
+    path('', include('learning_logs.urls')), #Dołączenie modułu learning_logs   
 ]
