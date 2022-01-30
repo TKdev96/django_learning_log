@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from .models import Topic #importowanie modelu Topic
-from .forms import TopicForm #importowanie modelu formularza dla new_topic
+from .forms import TopicForm, EntryForm #importowanie modelu formularza dla new_topic, new_entry
 
 # Create your views here.
 
@@ -37,4 +37,22 @@ def new_topic(request):
             return redirect('learning_logs:topics')
 
     context = {'form': form} #przekazanie do contextu forma,aby wykorzystać go w new_topic.html 
-    return render(request, 'learning_logs/new_topic.html', context)               
+    return render(request, 'learning_logs/new_topic.html', context) 
+
+#Utworzenie widoku tworzenia nowego wpisu (/new_entry.html)
+
+def new_entry(request, topic_id): #wykorzytanie topic_id dopasowanie wpisu do tematu
+    topic = Topic.objects.get(id=topic_id) #funkcja get pobiera temat do topic_id przekazane zostaje id tematu
+
+    if request.method != 'POST':
+        form = EntryForm()
+    else:
+        form = EntryForm(data=request.POST) #przetwarzanie danych z formularza
+        if form.is_valid():
+            new_entry = form.save(commit=False) #commit=False nakazuje utworzenie nowego obiektu wpisu, i przechowanie w zmiennej new_entry - Bez zapisania w bazie danych
+            new_entry.topic = topic #Przypisanie tematu pobranego z bazy danych
+            new_entry.save() #zapisanie w bazie danych wpisu z przypisanym mu tematem
+            return redirect('learning_logs:topic', topic_id = topic_id) #przekierowanie użytkownika na stronę tematu, przekazujemy id tematu
+
+    context = {'topic': topic, 'form': form} #przekazanie do contextu forma i tematu,aby wykorzystać je w new_entry.html
+    return render(request, 'learning_logs/new_entry.html', context)
