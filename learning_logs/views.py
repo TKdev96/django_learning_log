@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Topic #importowanie modelu Topic
+from .forms import TopicForm #importowanie modelu formularza dla new_topic
 
 # Create your views here.
 
@@ -23,3 +24,17 @@ def topic(request, topic_id): #topic_id przechwytuje <int:topic_id>
     entries = topic.entry_set.order_by('-date_added') #Pobranie wpisów powiązanych z tematem z sortowaniem odwrotnym
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
+
+#Utworzenie widoku tworzenia nowego tematu (/new_topic.html)
+
+def new_topic(request):
+    if request.method != 'POST': #jeżeli metoda żądania jest inna niż POST
+        form = TopicForm() #To przekaż pusty formularz
+    else:
+        form = TopicForm(request.POST) #jeżeli metoda żądania to post
+        if form.is_valid(): #sprawdzenie prawidłowości danych
+            form.save() #zapisanie w bazie danych
+            return redirect('learning_logs:topics')
+
+    context = {'form': form} #przekazanie do contextu forma,aby wykorzystać go w new_topic.html 
+    return render(request, 'learning_logs/new_topic.html', context)               

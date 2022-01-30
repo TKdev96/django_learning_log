@@ -11,5 +11,7 @@ urlpatterns = [
     path('topics/', views.topics, name='topics'),
     #Dodanie widoków poszczególnych tematów
     path('topics/<int:topic_id>', views.topic, name="topic"),
+    #Dodanie widoku tworzenia nowego tematu przez użytkownika
+    path('new_topic/', views.new_topic, name='new_topic'),
 
 ]
