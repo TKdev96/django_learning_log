@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'learning_logs', #dodanie modeli dla aplikacji learning_logs
 ]
 
 MIDDLEWARE = [
