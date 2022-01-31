@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required #import potrzebny to ograniczenia dostępu tylko dla zalogowanych
 from .models import Topic, Entry #importowanie modelu Topic oraz Entry
 from .forms import TopicForm, EntryForm #importowanie modelu formularza dla new_topic, new_entry
+
 
 # Create your views here.
 
@@ -12,6 +13,7 @@ def index(request):
 
 #Utworzenie widoku dla tematów (/topics.html)
 
+@login_required #Dostęp do widoku tylko po zalogowaniu
 def topics(request):
     topics = Topic.objects.order_by('date_added')  #Przypisanie obiektów (Tematów) z bazy danych przesortowanych po dacie chronologicznie
     context = {'topics': topics} #context tworzymy w celu późniejszego wykorzystania kluczy w szablonach html
@@ -19,6 +21,7 @@ def topics(request):
 
 #Utworzenie widoku dla pojedynczego tematu (/topic/<id>.html)
 
+@login_required #Dostęp do widoku tylko po zalogowaniu
 def topic(request, topic_id): #topic_id przechwytuje <int:topic_id>
     topic = Topic.objects.get(id=topic_id) #funkcja get pobiera temat do topic_id przekazane zostaje id tematu
     entries = topic.entry_set.order_by('-date_added') #Pobranie wpisów powiązanych z tematem z sortowaniem odwrotnym
@@ -27,6 +30,7 @@ def topic(request, topic_id): #topic_id przechwytuje <int:topic_id>
 
 #Utworzenie widoku tworzenia nowego tematu (/new_topic.html)
 
+@login_required #Dostęp do widoku tylko po zalogowaniu
 def new_topic(request):
     if request.method != 'POST': #jeżeli metoda żądania jest inna niż POST
         form = TopicForm() #To przekaż pusty formularz
@@ -41,6 +45,7 @@ def new_topic(request):
 
 #Utworzenie widoku tworzenia nowego wpisu (/new_entry.html)
 
+@login_required #Dostęp do widoku tylko po zalogowaniu
 def new_entry(request, topic_id): #wykorzytanie topic_id dopasowanie wpisu do tematu
     topic = Topic.objects.get(id=topic_id) #funkcja get pobiera temat do topic_id przekazane zostaje id tematu
 
@@ -59,6 +64,7 @@ def new_entry(request, topic_id): #wykorzytanie topic_id dopasowanie wpisu do te
 
 #Utworzenie widoku edycji pojedynczego wpisu (/edit_entry<id>.html)
 
+@login_required #Dostęp do widoku tylko po zalogowaniu
 def edit_entry(request, entry_id): #wykorzytanie entry_id aby edytować wybrany wpis
     entry = Entry.objects.get(id=entry_id) #funkcja get pobiera entry do entry_id przekazane zostaje id wpisu
     topic = entry.topic #przypisuje temat pobrany z bazy dla tego wpisu
