@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Topic #importowanie modelu Topic
+from .models import Topic, Entry #importowanie modelu Topic oraz Entry
 from .forms import TopicForm, EntryForm #importowanie modelu formularza dla new_topic, new_entry
 
 # Create your views here.
@@ -56,3 +56,21 @@ def new_entry(request, topic_id): #wykorzytanie topic_id dopasowanie wpisu do te
 
     context = {'topic': topic, 'form': form} #przekazanie do contextu forma i tematu,aby wykorzystać je w new_entry.html
     return render(request, 'learning_logs/new_entry.html', context)
+
+#Utworzenie widoku edycji pojedynczego wpisu (/edit_entry<id>.html)
+
+def edit_entry(request, entry_id): #wykorzytanie entry_id aby edytować wybrany wpis
+    entry = Entry.objects.get(id=entry_id) #funkcja get pobiera entry do entry_id przekazane zostaje id wpisu
+    topic = entry.topic #przypisuje temat pobrany z bazy dla tego wpisu
+
+    if request.method != 'POST':
+        form = EntryForm(instance=entry) #argument instance=entry tworzy formularz wypełniony informacjami z obiektu istniejącego wpisu.
+    else:
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_id = topic.id)
+
+    context = {'entry': entry, 'topic': topic, 'form': form}
+    return render(request, 'learning_logs/edit_entry.html', context)            
+
