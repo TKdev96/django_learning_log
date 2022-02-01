@@ -15,7 +15,8 @@ def index(request):
 
 @login_required #Dostęp do widoku tylko po zalogowaniu
 def topics(request):
-    topics = Topic.objects.order_by('date_added')  #Przypisanie obiektów (Tematów) z bazy danych przesortowanych po dacie chronologicznie
+    #topics = Topic.objects.order_by('date_added')  #Przypisanie obiektów (Tematów) z bazy danych przesortowanych po dacie chronologicznie
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added') #Przypisanie obiektów tematów z bazy, ale tylko powiązanych z użytkownikiem (twórcą) oraz sortowanie po dacie
     context = {'topics': topics} #context tworzymy w celu późniejszego wykorzystania kluczy w szablonach html
     return render(request, 'learning_logs/topics.html', context)
 

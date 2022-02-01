@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User #importowanie user, aby umożliwić powiązanie tematów z użytkownikiem który je utworzył 
 
 # Create your models here.
 # Page 503
@@ -6,6 +7,7 @@ class Topic(models.Model):
     """Topic displayed for users"""
     text = models.CharField(max_length=200) #pole text czyli nazwa tematu, Charfield określa max długość znaków
     date_added = models.DateTimeField(auto_now_add=True) #pole data określone po aktualnej dacie i godzinie dodania
+    owner = models.ForeignKey(User, on_delete=models.CASCADE) #Dodanie w bazie kolumny owner do modelu Topic i powiązanie jej z użytkownikiem
 
     def __str__(self):
         """Zwraca tekstową reprezentację modelu"""
