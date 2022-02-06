@@ -1,15 +1,17 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
+    <div class="px-4 pt-4 pb-4 border rounded">
+        <h5><a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></h5>
+        <hr>
 
-    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
-    
-    <p>Edycja wpisu:</p>
+        <p>Edycja wpisu:</p>
 
-    <form method='post' action="{% url 'learning_logs:edit_entry' entry.id %}">
-        {% csrf_token %}
-        {{ form }}
-        <button name='submit'>Zapisz zmiany</button>
-    </form>   
+        <form method='post' action="{% url 'learning_logs:edit_entry' entry.id %}">
+            {% csrf_token %}
+            {{ form }}
+            <p><button class="btn btn-primary rounded" name='submit'>Zapisz</button></p>
+        </form>   
+    </div>
 
 {% endblock content %}

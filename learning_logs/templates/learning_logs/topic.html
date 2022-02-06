@@ -1,27 +1,30 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
+    <div class="col-lg-6 mx-auto px-4 pt-4 pb-2 border rounded">
+        <h5>Temat: {{ topic }}</h5>
+        <hr>
 
-    <p>Temat: {{ topic }}</p>
-
-    <p>Wpisy:</p>
-    <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Dodaj nowy wpis</a>
-    </p>
-    <ul>
-    {% for entry in entries %}
-        <li>
-            <p>{{ entry.date_added|date:'d M Y H:i' }}</p>
-            <p>{{ entry.text|linebreaks }}</p>
-            <p>
-                <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edytuj wpis</a>
-            </p>
-        </li>
-    {% empty %}
-        <li>
-            Nie ma jeszcze żadnego wpisu.
-        </li>
-    {% endfor %}    
-    </ul>
-
+        <p><strong>Wpisy:</strong></p>
+        
+        <ul style="text-decoration: none;">
+        {% for entry in entries %}
+                
+                <div class="mb-5">
+                    <small style="text-decoration: none; padding-right: 0.500rem;">{{ entry.date_added|date:'d M Y H:i' }}</small>
+                    <button class="btn btn-outline-secondary btn-sm"><a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:edit_entry' entry.id %}">Edytuj wpis</a></button>
+                    
+                    <p>{{ entry.text|linebreaks }}</p>
+                </div>
+                
+        {% empty %}
+            <li>
+                Nie ma jeszcze żadnego wpisu.
+            </li>
+        {% endfor %}    
+        </ul>
+        <p class="mt-5">
+            <button class="btn btn-outline-secondary px-3"><a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:new_entry' topic.id %}">Dodaj nowy wpis</a></button>
+        </p>
+    </div>    
 {% endblock content %}    

@@ -6,7 +6,7 @@
         {% csrf_token %}
         {{ form }}
 
-        <button name="submit">Rejestruj</button>
+        <button class="btn btn-primary rounded mt-2" name="submit">Rejestruj</button>
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
     </form>
 

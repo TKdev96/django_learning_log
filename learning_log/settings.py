@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'learning_logs', #dodanie modeli dla aplikacji learning_logs
     'users', #dodanie modeli dla aplikacji users
+
+    #Zewnętrzne aplikacje
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/users/login/' #przypisanie potrzebne do funkcjonowania login_required
+
+BOOTSTRAP5 = {
+'include_jquery': True,
+}
