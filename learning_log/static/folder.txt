@@ -1,0 +1,3 @@
+Istnienie tego pliku gwarantuje, że katalog learning_log/static/
+będzie dodany do projektu. Django zbierze pliki statyczne,
+a następnie umieści je w katalogu learning_log/static/.
