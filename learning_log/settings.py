@@ -132,3 +132,12 @@ LOGIN_URL = '/users/login/' #przypisanie potrzebne do funkcjonowania login_requi
 BOOTSTRAP5 = {
 'include_jquery': True,
 }
+
+# Heroku settings.
+import django_heroku
+django_heroku.settings(locals())
+
+if os.environ.get('DEBUG') == 'TRUE':
+    DEBUG = True
+elif os.environ.get('DEBUG') == 'FALSE':
+    DEBUG = False
