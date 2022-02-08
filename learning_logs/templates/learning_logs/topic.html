@@ -12,7 +12,7 @@
                 
                 <div class="mb-5">
                     <small style="text-decoration: none; padding-right: 0.500rem;">{{ entry.date_added|date:'d M Y H:i' }}</small>
-                    <button class="btn btn-outline-secondary btn-sm"><a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:edit_entry' entry.id %}">Edytuj wpis</a></button>
+                    <a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:edit_entry' entry.id %}"><button class="btn btn-outline-secondary btn-sm">Edytuj wpis</button></a>
                     
                     <p>{{ entry.text|linebreaks }}</p>
                 </div>
@@ -24,7 +24,7 @@
         {% endfor %}    
         </ul>
         <p class="mt-5">
-            <button class="btn btn-outline-secondary px-3"><a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:new_entry' topic.id %}">Dodaj nowy wpis</a></button>
+            <a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:new_entry' topic.id %}"><button class="btn btn-outline-secondary px-3">Dodaj nowy wpis</button></a>
         </p>
     </div>    
 {% endblock content %}    
