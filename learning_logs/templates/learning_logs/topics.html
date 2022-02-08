@@ -10,7 +10,6 @@
             
             <h3 class="mb-0 text-light"><a class="text-light" style="text-decoration: none;">{{ topic }}</a></h3>
             <div class="mb-1 text-muted">{{topic.date_added|date:'d M'}}</div>
-            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-left">
                 <a class="text-light" style="text-decoration: none;" href="{% url 'learning_logs:topic' topic.id %}"><button class="btn btn-outline-secondary px-3 mt-3">Zobacz wpisy</button></a>
             </div>
